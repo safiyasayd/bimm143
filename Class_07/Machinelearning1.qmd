@@ -1,0 +1,187 @@
+---
+title: "Class 7: Machine Learning 1"
+author: "Safiya Sayd (A18027139)"
+format: pdf
+date: "02/05/2025"
+---
+#kmeans()
+
+Demo af using kmeans() function in base R. First make up some data with a known structure
+
+```{r}
+tmp <- c(rnorm(30,-3), rnorm(30,3))
+x <- cbind(tmp, y=rev(tmp))
+plot(x)
+```
+
+Made up data in `x` lets see how kmeans works with this data
+
+```{r}
+k <- kmeans(x, centers = 2, nstart = 20)
+k
+```
+
+> Q How many points are in each cluster? 
+
+```{r}
+k$size
+```
+
+> Q. How do we find which cluster the data point belongs to?
+
+```{r}
+k$cluster
+```
+
+> Q. What is the center of the cluster? 
+
+```{r}
+k$centers
+```
+
+Lets use main results to plot data with kmeans results
+
+```{r}
+plot(x, col= k$cluster)
+points(k$centers, col= "blue", pch=15)
+```
+
+##hierarchical Clustering, hclust()
+
+Cluster the same data in `x` with hierarchical clustering (hclust())
+
+d is the distance of one point from all the other points. `hclust()` requires a distnace matrix as input. 
+```{r}
+hc <- hclust( dist(x))
+hc
+```
+Plot of hc results
+```{r}
+plot(hc)
+```
+
+To get cluster membership vector the tree has to be "cut" horizonally at the top of the tree, `cutree()`. 
+
+```{r}
+groups <- cutree(hc, k=2)
+groups
+```
+Groups can be used to plot data
+
+```{r}
+plot(x, col= groups)
+```
+
+#Principal Component Analysis (PCA)
+
+## PCA of UK food data
+
+Read data from website and try a few visualizations 
+
+```{r}
+url <- "https://tinyurl.com/UK-foods"
+x <- read.csv(url, row.name=1)
+x
+```
+
+```{r}
+cols <- rainbow(nrow(x))
+barplot( as.matrix(x), col=cols)
+```
+
+```{r}
+barplot( as.matrix(x), col=cols, beside = T)
+```
+
+```{r}
+pairs(x, col=cols)
+```
+
+PCA to the rescue!
+The main base R PCA function is called `prcomp()`
+
+```{r}
+#t() switches rows for columns and columns for rows
+pca <- prcomp( t(x))
+pca
+```
+#Attributes() tells you whats inside the PCA object
+
+```{r}
+attributes(pca)
+```
+
+TO make our PCA plot (a.k.a PCA scores plot) we access `pca$x`
+
+```{r}
+plot(pca$x[,1], pca$x[,2])
+text(pca$x[,1], pca$x[,2], colnames(x))
+```
+
+Color up plot
+
+```{r}
+country_cols <- c("orange", "red", "blue", "green")
+plot(pca$x[,1], pca$x[,2], xlab="PC1", ylab= "PC2")
+text(pca$x[,1], pca$x[,2], colnames(x), col = country_cols)
+```
+
+Use standard deviation to calculate how much variation of the original data is accounted for in PC
+
+```{r}
+v <- round( pca$sdev^2/sum(pca$sdev^2) * 100 )
+v
+```
+
+```{r}
+z <- summary(pca)
+z$importance
+```
+
+```{r}
+barplot(v, xlab="Principal Component", ylab="Percent Variation")
+```
+
+
+Digging deeper (variable loadings)
+Rotation component tells you how much each variable contributes to PCA
+```{r}
+par(mar=c(10, 3, 0.35, 0))
+barplot( pca$rotation[,1], las=2 )
+```
+
+
+##PCA of RNA-Seq data
+
+```{r}
+url2 <- "https://tinyurl.com/expression-CSV"
+rna.data <- read.csv(url2, row.names=1)
+head(rna.data)
+```
+
+> Q. How many genes are in this data set?
+
+```{r}
+nrow(rna.data)
+```
+
+```{r}
+pca <- prcomp( t(rna.data))
+summary(pca)
+```
+
+plot RNA-Seq data
+
+```{r}
+plot(pca$x[,1], pca$x[,2], xlab="PC1", ylab= "PRC2")
+```
+
+```{r}
+plot(pca$x[,1], pca$x[,2], xlab="PC1", ylab= "PRC2")
+text(pca$x[,1], pca$x[,2], colnames(rna.data))
+```
+
+```{r}
+plot(pca, main="Quick scree plot")
+```
+
