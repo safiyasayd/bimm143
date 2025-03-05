@@ -1,0 +1,164 @@
+---
+title: "Class 5: Data Viz with ggplot"
+author: "Safiya (PID:A18027139)"
+format: pdf
+---
+
+## Intro to ggplot
+
+There are many graphics systems in R (ways to make plots and figures). These include "base" R plots. Today we will focus mostly on  **ggplot2** package. 
+
+Let's start with a plot of a simple in-built dataset called `cars`. 
+
+
+```{r}
+plot(cars)
+```
+
+make this figure with **ggplot**. This package has to be installed on my computer. To install any R package I use the function `install.packages()`.
+
+> I will run `install.packages("ggplot2") in my R console not this quarto document. 
+
+Before I can use any functions from add-on packages I need to load the package from my "library()" with the `library(ggplot2)` call. 
+
+```{r}
+library(ggplot2)
+ggplot(cars)
+```
+
+All ggplot figures have at least 3 things (called layers). These include: 
+
+-**data** (the input dataset I want to plot from),
+-**aes** (the aesthetic mapping of the data to my plot),
+-**geoms** (the geom_point(), geom_line() etc. that I want to draw).
+
+```{r}
+ggplot(cars) + aes(x=speed, y=dist) + geom_point()
+```
+
+Let's add a line to show the relationship here: 
+
+```{r}
+ggplot(cars) + aes(x=speed, y=dist) + geom_point() +
+geom_smooth(method="lm") +
+  theme_bw() + labs(title="first GGPLOT")
+```   
+
+>Which geometric layer should be used to create scatter plots in ggplot2?
+
+Geom_point
+
+## gene expression figure
+
+The code to read the dataset
+
+```{r}
+url <-"https://bioboot.github.io/bimm143_S20/class-material/up_down_expression.txt"
+genes <- read.delim(url)
+head(genes)
+```
+
+> how many genes are in this dataset?
+
+```{r}
+nrow(genes)
+```
+
+First plot of this data set 
+
+```{r}
+ggplot(genes) +
+  aes(x=Condition1, y=Condition2, col=State) +
+  geom_point() + labs(title="Gene Expression Changes upon drug treatment",
+      x= "Control Expression",  
+      y= "Drug presence Expression") + 
+theme_get() +
+scale_colour_manual( values=c("blue","gray","red") )
+
+``` 
+
+>Use the table() function on the State column of this data.frame to find out how many ‘up’ regulated genes there are. What is your answer? 
+
+```{r}
+round( table(genes$State)/nrow(genes), 4)
+```
+
+```{r}
+n.tot <- nrow(genes)
+vals <- table(genes$State)
+
+vals.percent <- vals/n.tot * 100
+round(vals.percent, 2)
+```
+
+>Use the colnames() function and the ncol() function on the genes data frame to find out what the column names are (we will need these later) and how many columns there are. How many columns did you find?
+
+```{r}
+colnames(genes)
+```
+## life Expectancy
+
+The code to read the dataset
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/jennybc/gapminder/master/inst/extdata/gapminder.tsv"
+
+gapminder <- read.delim(url)
+head(gapminder)
+```
+
+```{r}
+ggplot(gapminder) +
+ geom_point(aes(x= gdpPercap, y=lifeExp, size=pop), alpha=0.1) +
+  scale_size_area(max_size = 15)
+```
+
+```{r}
+library(dplyr)
+gapmider_2007 <- filter(gapminder, year==2007)
+```
+
+
+```{r}
+ggplot(gapmider_2007) +
+ geom_point(aes(x= gdpPercap, y=lifeExp, size=pop), alpha=0.1) +
+  scale_size_area(max_size = 15) 
+
+```
+
+```{r}
+library(patchwork)
+```
+
+
+
+
+# Setup some example plots 
+```{r}
+p1 <- ggplot(mtcars) + geom_point(aes(mpg, disp))
+p2 <- ggplot(mtcars) + geom_boxplot(aes(gear, disp, group = gear))
+p3 <- ggplot(mtcars) + geom_smooth(aes(disp, qsec))
+p4 <- ggplot(mtcars) + geom_bar(aes(carb))
+```
+
+```{r}
+p1
+```
+
+```{r}
+p2
+```
+
+```{r}
+p3
+```
+```{r}
+p4
+```
+
+
+```{r}
+(p1 | p2 | p3) / p4
+```
+
