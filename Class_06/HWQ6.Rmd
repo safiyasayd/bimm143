@@ -1,0 +1,42 @@
+---
+title: "HWQ6"
+author: "Safiya Sayd"
+date: "2025-01-24"
+output: pdf_document
+---
+
+```{r}
+library(bio3d) 
+s1 <- read.pdb("4AKE")  # kinase with drug 
+s2 <- read.pdb("1AKE")  # kinase no drug 
+s3 <- read.pdb("1E4Y")  # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+
+
+```{r}
+mypdb <- function(x) {
+ read.pdb(x) 
+}
+mypdb("4AKE")
+```
+
+```{r} 
+mypdb <- function(x) {
+spdb <- read.pdb(x)
+mypdbchain <- trim.pdb(spdb, chain="A", elety="CA") 
+
+chainatoms <- mypdbchain$atom$b
+
+plotb3(chainatoms, sse=mypdbchain, typ="l", ylab="Bfactor")
+}
+```
+
+
+
+
