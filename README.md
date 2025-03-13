@@ -1,6 +1,7 @@
 # BIMM_143 Portifilio
 
-My class work from W25 [bimm_143](https://github.com/safiyasayd/bimm143) at UC San Diego
+My class work from W25 [bimm_143](https://htmlpreview.github.io/?
+https://raw.githubusercontent.com/safiyasayd/bimm143/refs/heads/main/Class_04/Class-4.html) at UC San Diego
 
 - Class04 Introduction to R [Introduction to R](
 
