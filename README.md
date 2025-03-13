@@ -1,5 +1,11 @@
 # BIMM_143 Portifilio
 
-This repo is for my UCSD [bimm_143](https://github.com/safiyasayd/bimm143) bioinformatics class at UCSD. 
+My class work from W25 [bimm_143](https://github.com/safiyasayd/bimm143) at UC San Diego
 
--class04 Introduction to R
+- Class04 Introduction to R [Introduction to R](
+
+- Class05 [Data visualitzion with ggplot](
+
+- Class06 [Data exploration and visualization in R]
+
+- Class07 [Why, when and how of writing your own R functions](  
