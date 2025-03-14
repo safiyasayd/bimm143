@@ -1,0 +1,32 @@
+---
+title: "Class12: Genome informatics"
+author: "Safiya Sayd (PID:A18027139)"
+format: pdf
+toc: TRUE
+date: 02/13/2025
+---
+## Section 1. Proportion of G/G in a population 
+
+Download a csv file from ensemble 
+
+We will read this file to determine frequency
+
+
+```{r}
+mxl <- read.csv("373531-SampleGenotypes-Homo_sapiens_Variation_Sample_rs8067378.csv")
+head(mxl)
+```
+Get to the column of Genotype
+
+```{r}
+table(mxl$Genotype..forward.strand.)
+```
+How much each genotype makes of the total 
+```{r}
+table(mxl$Genotype..forward.strand.)/nrow(mxl)*100
+```
+
+Lets look at different Population. I am using GBR. 
+
+
+
