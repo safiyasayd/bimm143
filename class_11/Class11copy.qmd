@@ -1,0 +1,48 @@
+---
+title: "Alpha fold analysis"
+author: "Safiya Sayd (PID:A18027139)"
+format: pdf
+---
+
+Here we analysis our alpha fold structure prediction models. The input directory/folder comes from the colabfold server: 
+
+```{r}
+# Change this for YOUR results dir name
+results_dir <- "hivpr_monomer_94b5b" 
+```
+
+```{r}
+pdb_files <- list.files(path=results_dir,
+                        pattern="*.pdb",
+                        full.names = TRUE)
+
+basename(pdb_files)
+```
+
+```{r}
+library(bio3d)
+```
+
+```{r}
+pdbs <- pdbaln(pdb_files, fit=TRUE, exefile="msa")
+```
+
+```{r}
+pc<- pca(pdbs)
+plot(pc)
+```
+## RMSD analysis
+RMSD is a common measure of structural 
+```{r}
+rd <- rmsd(pdbs, fit=T)
+rd
+```
+
+```{r}
+library(pheatmap)
+
+colnames(rd) <- paste0("m",1:5)
+rownames(rd) <- paste0("m",1:5)
+pheatmap(rd)
+```
+
