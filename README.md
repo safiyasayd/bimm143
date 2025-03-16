@@ -1,4 +1,4 @@
-# BIMM_143 Portifilio
+# BIMM_143 Portfolio
 
 My class work from W25 [bimm_143](https://safiyasayd.github.io/bimm143/) at UC San Diego
 
