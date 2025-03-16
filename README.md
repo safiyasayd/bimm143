@@ -12,7 +12,7 @@ My class work from W25 [bimm_143](https://safiyasayd.github.io/bimm143/) at UC S
 
 - Class08 [Unsupervised Learning Mini-Project](https://htmlpreview.github.io/?https://raw.githubusercontent.com/safiyasayd/bimm143/refs/heads/main/class_08/Class08-Mini-Project.html)
 
-- Class09 [Halloween Candy Mini-Project](https://raw.githubusercontent.com/safiyasayd/bimm143/refs/heads/main/class_09/Class09.html)
+- Class09 [Halloween Candy Mini-Project](https://htmlpreview.github.io/?https://raw.githubusercontent.com/safiyasayd/bimm143/refs/heads/main/class_09/Class09.html)
 
 - Class10 [Structural Bioinformatics (pt1)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/safiyasayd/bimm143/refs/heads/main/class_10/Lab10%20copy.html)
 
